@@ -18,5 +18,4 @@ def connect_to_db():
         host=DB_CONFIG["Host"],
     )
     return engine
-engine=connect_to_db
-cur=engine.cursor()
+
