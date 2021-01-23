@@ -1,4 +1,4 @@
-#first
+#first time run, creat tables
 import finnhub
 import pandas as pd
 import psycopg2
