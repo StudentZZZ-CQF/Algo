@@ -30,3 +30,4 @@ for i in range(100):
     df_D=Rdate.df_finhub(SP500_NAME[i],'D',enddate-31622400,enddate)
     uploaddata_daily(cur,Table_N[i][i],df_D)
 
+Table_N.to_csv('tablename.csv')
