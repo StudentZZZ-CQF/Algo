@@ -35,7 +35,7 @@ for i in range(100):
     engine=connect_to_db()
     cur=engine.cursor()
     Table_NM[i]=DBtable.creat_dailysqltable(cur,engine,SP500_NAME[i])
-    df_D=Rdate.df_finhub(SP500_NAME[i],'1',enddate-1622400,enddate)
+    df_D=Rdate.df_finhub(SP500_NAME[i],1,enddate-1622400,enddate)
     time.sleep(1)
     uploaddata_daily(cur,Table_NM[i][i],df_D)
     
