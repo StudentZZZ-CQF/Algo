@@ -2,6 +2,7 @@
 import finnhub
 import pandas as pd
 import psycopg2
+import time
 import sqlalchemy
 import numpy as np
 import os 
@@ -23,11 +24,15 @@ Table_NM=pd.read_csv('tablenameM.csv')
 engine=connect_to_db
 cur=engine.cursor()
 enddate=int(datetime.timestamp(time))
+cur.execute("SELECT MAX(timestamp) FROM DailyD;")
+lasttime=cur.fetchall()[0][0]
+Starttime=lasttime+1
 for i in range(100):
     engine=connect_to_db()
     cur=engine.cursor()
     Table_ND[i]=DBtable.creat_dailysqltable(cur,engine,SP500_NAME[i])
-    df_D=Rdate.df_finhub(SP500_NAME[i],'D',enddate-31622400,enddate)
+    df_D=Rdate.df_finhub(SP500_NAME[i],'D',Starttime,enddate)
+    time.sleep(1)
     Tabledf=Table_ND[i:i+1]
     Table_nameD=np.array(Tabledf)[0,1]
     uploaddata_daily(cur,Table_nameD,df_D)
@@ -36,7 +41,8 @@ for i in range(100):
     engine=connect_to_db()
     cur=engine.cursor()
     Table_NM[i]=DBtable.creat_dailysqltable(cur,engine,SP500_NAME[i])
-    df_D=Rdate.df_finhub(SP500_NAME[i],1,enddate-31622400,enddate)
+    df_D=Rdate.df_finhub(SP500_NAME[i],1,Starttime,enddate)
+    time.sleep(1)
     Tabledf=Table_NM[i:i+1]
     Table_nameM=np.array(Tabledf)[0,1]
     uploaddata_daily(cur,Table_nameM,df_D)
