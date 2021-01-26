@@ -5,6 +5,7 @@ import psycopg2
 import sqlalchemy
 import numpy as np
 import os 
+import time
 import os.path
 import connect_db
 import Rdate
@@ -22,7 +23,7 @@ Table_NM=table[0]['Symbol']
 #connect to database
 engine=connect_to_db
 cur=engine.cursor()
-enddate=int(datetime.timestamp(time))
+enddate = time.time()
 for i in range(100):
     engine=connect_to_db()
     cur=engine.cursor()
