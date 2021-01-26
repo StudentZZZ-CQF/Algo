@@ -23,7 +23,7 @@ Table_NM=pd.read_csv('tablenameM.csv')
 #connect to database
 engine=connect_to_db
 cur=engine.cursor()
-enddate=int(datetime.timestamp(time))
+enddate = time.time()
 cur.execute("SELECT MAX(timestamp) FROM DailyD;")
 lasttime=cur.fetchall()[0][0]
 Starttime=lasttime+1
